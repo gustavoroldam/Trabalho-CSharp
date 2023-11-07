@@ -20,11 +20,19 @@ namespace Trabalho.Controllers
         }
 
         // GET: Medicos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busca, string tipo)
         {
-              return _context.Medicos != null ? 
-                          View(await _context.Medicos.ToListAsync()) :
-                          Problem("Entity set 'Contexto.Medicos'  is null.");
+            List<Medico> medico = _context.Medicos.ToList();
+
+            if (busca != null)
+            {
+                if (tipo == "nome")
+                {
+                    medico = _context.Medicos.Where(med => med.nome.Contains(busca)).ToList();
+                }
+            }
+
+            return View(medico);
         }
 
         // GET: Medicos/Details/5

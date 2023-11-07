@@ -5,14 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Consulta</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Adicionar</a>
 </p>
-<table class="table">
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <label for="tipo">Filtrar por:</label>
+
+        <select name="tipo" id="tipo">
+            <option value="todos">todos</option>
+            <option value="paciente">Paciente</option>
+            <option value="medico">Medico</option>
+            <option value="medicamento">Medicamentos Injetaveis</option>
+        </select>
+        <p>
+            Buscar por: <input type="text" name="busca" value="" />
+            <input type="submit" value="Filtrar" class="btn btn-default" />
+        </p>
+    </div>
+</form>
+
+<table class="table table-bordered">
     <thead>
-        <tr>
+        <tr style="background-color: #ADD8E6; color: #000;">
             <th>
                 @Html.DisplayNameFor(model => model.paciente)
             </th>
@@ -32,10 +50,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.paciente.endereco)
+                @Html.DisplayFor(modelItem => item.paciente.nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.medico.especialidade)
+                @Html.DisplayFor(modelItem => item.medico.nome)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Medicamento_Injetaveis.nome)
@@ -44,9 +62,9 @@
                 @Html.DisplayFor(modelItem => item.Qtde_Vacina)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.id" class="btn btn-info">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-danger">Excluir</a>
             </td>
         </tr>
 }

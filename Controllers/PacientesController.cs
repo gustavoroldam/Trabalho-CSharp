@@ -20,11 +20,19 @@ namespace Trabalho.Controllers
         }
 
         // GET: Pacientes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busca, string tipo)
         {
-              return _context.Paciente != null ? 
-                          View(await _context.Paciente.ToListAsync()) :
-                          Problem("Entity set 'Contexto.Paciente'  is null.");
+            List<Paciente> paciente = _context.Paciente.ToList();
+
+            if (busca != null)
+            {
+                if (tipo == "nome")
+                {
+                    paciente = _context.Paciente.Where(pa => pa.nome.Contains(busca)).ToList();
+                }
+            }
+
+            return View(paciente);
         }
 
         // GET: Pacientes/Details/5

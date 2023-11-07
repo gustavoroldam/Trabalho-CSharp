@@ -10,9 +10,28 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <label for="tipo">Filtrar por:</label>
+
+        <select name="tipo" id="tipo">
+            <option value="todos">todos</option>
+            <option value="nome">Nome</option>
+        </select>
+        <p>
+            Buscar por: <input type="text" name="busca" value="" />
+            <input type="submit" value="Filtrar" class="btn btn-default" />
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.crm)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.nome)
             </th>
@@ -28,6 +47,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.crm)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.nome)
             </td>

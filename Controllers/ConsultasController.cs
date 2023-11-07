@@ -20,10 +20,42 @@ namespace Trabalho.Controllers
         }
 
         // GET: Consultas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busca, string tipo)
         {
-            var contexto = _context.Consulta.Include(c => c.Medicamento_Injetaveis).Include(c => c.medico).Include(c => c.paciente);
-            return View(await contexto.ToListAsync());
+            List<Consulta> consulta = _context.Consulta.Include(pa => pa.paciente)
+                                            .Include(med => med.medico)
+                                            .Include(medi => medi.Medicamento_Injetaveis)
+                                            .ToList();
+
+            if(busca != null)
+            {
+                if(tipo == "paciente")
+                {
+                    consulta = _context.Consulta.Include(pa => pa.paciente)
+                                            .Include(med => med.medico)
+                                            .Include(medi => medi.Medicamento_Injetaveis)
+                                            .Where(pa => pa.paciente.nome.Contains(busca))
+                                            .ToList();
+                }
+                else if(tipo == "medico")
+                {
+                    consulta = _context.Consulta.Include(pa => pa.paciente)
+                                            .Include(med => med.medico)
+                                            .Include(medi => medi.Medicamento_Injetaveis)
+                                            .Where(med => med.medico.nome.Contains(busca))
+                                            .ToList();
+                }
+                else if(tipo == "medicamento")
+                {
+                    consulta = _context.Consulta.Include(pa => pa.paciente)
+                                            .Include(med => med.medico)
+                                            .Include(medi => medi.Medicamento_Injetaveis)
+                                            .Where(medi => medi.Medicamento_Injetaveis.nome.Contains(busca))
+                                            .ToList();
+                }
+            }
+
+            return View(consulta);
         }
 
         // GET: Consultas/Details/5
@@ -52,8 +84,8 @@ namespace Trabalho.Controllers
         public IActionResult Create()
         {
             ViewData["MedicamentoId"] = new SelectList(_context.Medicamento_Injetaveis, "codigo", "nome");
-            ViewData["MadicoId"] = new SelectList(_context.Medicos, "crm", "especialidade");
-            ViewData["PacienteID"] = new SelectList(_context.Paciente, "cpf", "endereco");
+            ViewData["MadicoId"] = new SelectList(_context.Medicos, "crm", "nome");
+            ViewData["PacienteID"] = new SelectList(_context.Paciente, "cpf", "nome");
             return View();
         }
 
@@ -76,7 +108,7 @@ namespace Trabalho.Controllers
             }
             ViewData["MedicamentoId"] = new SelectList(_context.Medicamento_Injetaveis, "codigo", "nome", consulta.MedicamentoId);
             ViewData["MadicoId"] = new SelectList(_context.Medicos, "crm", "especialidade", consulta.MadicoId);
-            ViewData["PacienteID"] = new SelectList(_context.Paciente, "cpf", "endereco", consulta.PacienteID);
+            ViewData["PacienteID"] = new SelectList(_context.Paciente, "cpf", "nome", consulta.PacienteID);
             return View(consulta);
         }
 

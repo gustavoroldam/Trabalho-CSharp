@@ -20,11 +20,19 @@ namespace Trabalho.Controllers
         }
 
         // GET: Medicamento_Injetaveis
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string busca, string tipo)
         {
-              return _context.Medicamento_Injetaveis != null ? 
-                          View(await _context.Medicamento_Injetaveis.ToListAsync()) :
-                          Problem("Entity set 'Contexto.Medicamento_Injetaveis'  is null.");
+            List<Medicamento_Injetaveis> medicamentos = _context.Medicamento_Injetaveis.ToList();
+
+            if (busca != null)
+            {
+                if (tipo == "nome")
+                {
+                    medicamentos = _context.Medicamento_Injetaveis.Where(medi => medi.nome.Contains(busca)).ToList();
+                }
+            }
+
+            return View(medicamentos);
         }
 
         // GET: Medicamento_Injetaveis/Details/5
