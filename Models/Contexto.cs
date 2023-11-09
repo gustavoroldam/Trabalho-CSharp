@@ -13,5 +13,6 @@ namespace Trabalho.Models
 
         /*Agrupamento*/
         public DbSet<Trabalho.Models.Agrupamento.ConsultaAgr> ConsultaAgrs { get; set; }
+        public DbSet<Trabalho.Models.Pivot.ConsultaPivot> ConsultaPivots { get; set; }
     }
 }
