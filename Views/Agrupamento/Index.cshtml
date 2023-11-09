@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Trabalho.Models.Agrupamento.ConsultaAgr>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Médico
+            </th>
+            <th>
+                Especialidade
+            </th>
+            <th>
+                Paciente
+            </th>
+            <th>
+                Medicamento
+            </th>
+            <th>
+                Quantidade Utilizada
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomeMed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.especialidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomePa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomeMedicamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QtdeUsada)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

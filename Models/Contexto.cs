@@ -10,5 +10,8 @@ namespace Trabalho.Models
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Medicamento_Injetaveis> Medicamento_Injetaveis { get; set; }
         public DbSet<Consulta> Consulta { get; set; }
+
+        /*Agrupamento*/
+        public DbSet<Trabalho.Models.Agrupamento.ConsultaAgr> ConsultaAgrs { get; set; }
     }
 }
