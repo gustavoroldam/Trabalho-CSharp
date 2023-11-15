@@ -4,8 +4,24 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+    <style>
+        .btn-voltar {
+            display: inline-block;
+            padding: 10px 16px;
+            background-color: #3498db;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
 
-<h1>Edit</h1>
+        .btn-voltar:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<h1>Editar</h1>
 
 <h4>Consulta</h4>
 <hr />
@@ -34,15 +50,18 @@
                 <input asp-for="Qtde_Vacina" class="form-control" />
                 <span asp-validation-for="Qtde_Vacina" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+            <br />
+           
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn-voltar">Voltar</a>
 </div>
 
 @section Scripts {

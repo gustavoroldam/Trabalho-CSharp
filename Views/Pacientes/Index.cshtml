@@ -5,30 +5,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Pacientes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Adicionar</a>
 </p>
 
-<form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <label for="tipo">Filtrar por:</label>
-
-        <select name="tipo" id="tipo">
-            <option value="todos">todos</option>
-            <option value="nome">Nome</option>
-        </select>
-        <p>
-            Buscar por: <input type="text" name="busca" value="" />
-            <input type="submit" value="Filtrar" class="btn btn-default" />
-        </p>
+<form asp-action="Index" method="get" class="row g-3">
+    <div class="form-actions no-color row g-3">
+        <div class="col-md-2">
+            <label for="tipo">Filtrar</label>
+            <select class="form-select" name="tipo" id="tipo">
+                <option value="todos">todos</option>
+                <option value="nome">Nome</option>
+            </select>
+        </div>
+        <br />
+        <div class="col-md-5">
+            <label>Buscar</label>
+            <div class="input-group">
+                <input type="text" name="busca" value="" class="form-control" placeholder="Nome...">
+                <div class="input-group-append" id="button-addon4">
+                    <input type="submit" value="Filtrar" class="btn btn-primary bg-warning text-dark border-0" />
+                </div>
+            </div>
+        </div>
     </div>
 </form>
+<br />
 
-<table class="table">
+<table class="table table-bordered">
     <thead>
-        <tr>
+        <tr style="background-color: #ADD8E6; color: #000;">
             <th>
                 @Html.DisplayNameFor(model => model.cpf)
             </th>
@@ -60,9 +68,10 @@
                 @Html.DisplayFor(modelItem => item.endereco)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.cpf">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.cpf">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.cpf">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.cpf" class="btn btn-primary">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.cpf" class="btn btn-info">Detalhe</a> |
+                    <a asp-action="Delete" asp-route-id="@item.cpf" class="btn btn-danger">Excluir</a>
+            
             </td>
         </tr>
 }
